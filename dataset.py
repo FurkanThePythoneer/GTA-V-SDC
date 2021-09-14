@@ -35,7 +35,8 @@ class SDC_V0_DataRetriever(torch.utils.data.Dataset):
 		else:
 			raise NotImplementedError('You have to use augmentations sorry.')
 		img = img/255.0
-		label = torch.Tensor(self.df.choice.values[index])
+		label = self.df.choice.values[int(index)]
+		label = torch.Tensor(label)
 
 		return img, label
 
