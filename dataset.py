@@ -17,7 +17,7 @@ class SDC_V0_DataRetriever(torch.utils.data.Dataset):
 		self.mode = mode
 		self.albumentations = albumentations
 
-		if seld.mode == 'train':
+		if self.mode == 'train':
 			self.transform = A.Compose([
 				A.Resize(self.image_sizes[0], self.image_sizes[1]),
 				ToTensorV2()

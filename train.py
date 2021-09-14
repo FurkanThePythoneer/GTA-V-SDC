@@ -50,6 +50,7 @@ for epoch in range(epochs):
 
     loop = tqdm(train_loader)
     for images,labels in loop:
+        print('img: {}'.format(images.shape))
         images = images.to(device)
         labels = labels.to(device)
         labels = labels.float()
