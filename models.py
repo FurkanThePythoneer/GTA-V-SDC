@@ -8,7 +8,7 @@ from timm.models.efficientnet import *
 
 class SDC_V0_Model(nn.Module):
     def __init__(self, num_classes, pretrained):
-        super(StudyNet, self).__init__()
+        super(SDC_V0_Model, self).__init__()
         self.num_classes = num_classes
         self.pretrained = pretrained
 
