@@ -50,7 +50,7 @@ for epoch in range(epochs):
 
     loop = tqdm(train_loader)
     for images,labels in loop:
-        print('img: {}'.format(images.shape))
+        #print('img: {}'.format(images.shape))
         images = images.to(device)
         labels = labels.to(device)
         labels = labels.float()
@@ -62,7 +62,7 @@ for epoch in range(epochs):
             cls_loss = cls_criterion(cls_outputs, labels)
             train_losses.append(cls_loss.item())
         
-        scaler.scale(loss).backward()
+        scaler.scale(cls_loss).backward()
         scaler.step(optimizer)
         scaler.update()
 
