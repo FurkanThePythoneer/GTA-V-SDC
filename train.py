@@ -68,7 +68,7 @@ for epoch in range(epochs):
 
         loop.set_description('Epoch {}/{} | LR: {} | cls_loss: {}'.format(epoch, epochs-1, optimizer.param_groups[0]['lr'], cls_loss))
 
-    print('train loss: {} '.format(train_loss))
+    print('train loss: {} '.format(cls_loss))
         
     if epoch > 0:
         if cls_loss > past_train_loss:
