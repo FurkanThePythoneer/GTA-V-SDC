@@ -68,14 +68,14 @@ for epoch in range(epochs):
 
         loop.set_description('Epoch {}/{} | LR: {} | cls_loss: {}'.format(epoch, epochs-1, optimizer.param_groups[0]['lr'], cls_loss))
 
-        print('train loss: {} '.format(train_loss))
+    print('train loss: {} '.format(train_loss))
         
-        if epoch > 0:
-            if cls_loss > past_train_loss:
-                print('Train loss didn`t improve... :(')
-        else:
-            print('Loss improved! Saving model: {}'.format(CHECKPOINT))
-            torch.save(model.state_dict(), CHECKPOINT)
+    if epoch > 0:
+        if cls_loss > past_train_loss:
+            print('Train loss didn`t improve... :(')
+    else:
+        print('Loss improved! Saving model: {}'.format(CHECKPOINT))
+        torch.save(model.state_dict(), CHECKPOINT)
 
 
 
