@@ -21,7 +21,7 @@ train_loader = DataLoader(train_dataset, batch_size=16, sampler=RandomSampler(tr
 
 
 
-print('TRAIN: {} '.format(len(train_loader.dataset)))
+print('Train size: {} '.format(len(df)))
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
