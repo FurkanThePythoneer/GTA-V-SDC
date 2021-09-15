@@ -36,7 +36,21 @@ class SDC_V0_DataRetriever(torch.utils.data.Dataset):
 			raise NotImplementedError('You have to use augmentations sorry.')
 		img = img/255.0
 		label = self.df.loc[index, 'choice']
-		label = torch.Tensor(label)
+		
+		#a = '[1, 0, 0, 0, 0, 0, 0, 0, 0]'
+		label = label.split('[')[1]
+		label = label.split(']')[0]
+		choice = []
+		#print(a)
+		for item in label:
+		    if item == ',' or ',' in item or ' ' in item:
+		        pass
+
+		    else:
+		        choice.append(int(item))
+
+
+		label = torch.Tensor(choice)
 
 		return img, label
 
