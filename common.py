@@ -1,1 +1,0 @@
-absolute_path = '/kaggle/input/gta-v-data/training_png_dataset'

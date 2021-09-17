@@ -1,10 +1,10 @@
-from typing import Optional, List
-import timm 
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
-import numpy as np
+
+import timm 
 from timm.models.efficientnet import *
+from timm.data import IMAGENET_DEFAULT_MEAN, IMAGENET_DEFAULT_STD
 
 class SDC_V0_Model(nn.Module):
     def __init__(self, num_classes, pretrained):
@@ -12,7 +12,7 @@ class SDC_V0_Model(nn.Module):
         self.num_classes = num_classes
         self.pretrained = pretrained
 
-        e = tf_efficientnetv2_m_in21ft1k(pretrained=self.pretrained)
+        e = tf_efficientnetv2_s_in21ft1k(pretrained=self.pretrained)
         self.b0 = nn.Sequential(
             e.conv_stem,
             e.bn1,
@@ -24,7 +24,7 @@ class SDC_V0_Model(nn.Module):
         self.b4 = e.blocks[3]
         self.b5 = e.blocks[4]
         self.b6 = e.blocks[5]
-        self.b7 = e.blocks[6]
+        #self.b7 = e.blocks[6]
         self.b8 = nn.Sequential(
             e.conv_head, #384, 1536
             e.bn2,
@@ -45,14 +45,9 @@ class SDC_V0_Model(nn.Module):
         x = self.b4(x) #; print (x.shape)  # torch.Size([2, 96, 32, 32])
         x = self.b5(x) #; print (x.shape)  # torch.Size([2, 136, 32, 32])
         x = self.b6(x) #; print (x.shape)  # torch.Size([2, 232, 16, 16])
-        x = self.b7(x) #; print (x.shape)  # torch.Size([2, 384, 16, 16])
         x = self.b8(x) #; print (x.shape)  # torch.Size([2, 1536, 16, 16])
         x = F.adaptive_avg_pool2d(x,1).reshape(batch_size,-1)
         #x = F.dropout(x, 0.5, training=self.training)
         logit = self.logit(x)
 
         return logit
-
-
-
-
