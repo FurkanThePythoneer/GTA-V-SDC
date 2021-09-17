@@ -7,7 +7,23 @@ import pandas as pd
 import albumentations as A
 from albumentations.pytorch import ToTensorV2
 from common import absolute_path #/kaggle/input/gta-v-data/training_png_dataset
-
+"""
+        '''
+        #a = '[1, 0, 0, 0, 0, 0, 0, 0, 0]'
+        label = label.split('[')[1]
+        label = label.split(']')[0]
+        choice = []
+        
+        # Gotta run this bs loop since i forgot to change the type of the `choice`
+        
+        for item in label:
+            if item == ',' or ',' in item or ' ' in item:
+                pass
+        
+            else:
+                choice.append(int(item))
+        '''
+"""        
 
 class SDC_V0_DataRetriever(torch.utils.data.Dataset):
 	def __init__(self, df, mode, albumentations=True, image_sizes=(480,270)):

@@ -10,7 +10,7 @@ from tqdm import tqdm
 from common import *
 from dataset import *
 from models import *
-
+ 
 epochs = 30
 
 df = pd.read_csv(f'{absolute_path}/training_labels.csv') #'/kaggle/input/gta-v-data/training_png_dataset'
