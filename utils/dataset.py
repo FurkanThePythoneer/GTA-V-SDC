@@ -50,6 +50,7 @@ def build_dataset(paths, labels=None, bsize=128, cache=True,
     
     AUTO = tf.data.experimental.AUTOTUNE
     slices = paths if labels is None else (paths, labels)
+    print(labels.shape)
     
     dset = tf.data.Dataset.from_tensor_slices(slices)
     dset = dset.map(decode_fn, num_parallel_calls=AUTO)
@@ -60,3 +61,29 @@ def build_dataset(paths, labels=None, bsize=128, cache=True,
     dset = dset.batch(bsize).prefetch(AUTO)
     
     return dset
+
+def make_train_test_split(df, test_size=0.22):
+    '''
+    Create train, test
+    split for dataframes..
+    '''
+    splits = []
+    train_num = len(df) - math.ceil(len(df)*test_size)
+    for i in range(len(df)):
+        if i < train_num:
+            splits.append('train')
+        else:
+            splits.append('val')
+
+    df['split'] = splits
+    # ---------------
+    train_df = pd.DataFrame()
+    val_df = pd.DataFrame()
+
+    train_df = df.loc[df['split'] == 'train']
+    valid_df = df.loc[df['split'] == 'val']
+
+    del df
+    
+    return train_df, valid_df
+
