@@ -83,8 +83,8 @@ def train(epochs, test_size, init_lr, min_lr, strategy, dataframe, device='GPU',
 
 		print(model.summary())
 
-	steps_per_epoch = train_paths.shape[0] // batch_size
-
+	#steps_per_epoch = train_paths.shape[0] // batch_size
+	steps_per_epoch = 69912 // batch_size	
 	checkpoint = tf.keras.callbacks.ModelCheckpoint(
 		f'/kaggle/working/xception_v1-480.h5', save_best_only=True, monitor='val_loss', mode='min')
 
