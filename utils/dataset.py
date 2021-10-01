@@ -1,5 +1,5 @@
 import tensorflow as tf
-
+import numpy as np
 # using tensorflow dataset utils to make things work with TPUs
 
 def build_decoder(with_labels=True, target_size=(480,270),ext='png'):
@@ -50,7 +50,7 @@ def build_dataset(paths, labels=None, bsize=128, cache=True,
     
     AUTO = tf.data.experimental.AUTOTUNE
     slices = paths if labels is None else (paths, labels)
-    print(labels.shape)
+    print(np.array(labels.shape))
     
     dset = tf.data.Dataset.from_tensor_slices(slices)
     dset = dset.map(decode_fn, num_parallel_calls=AUTO)
