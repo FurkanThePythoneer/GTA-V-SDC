@@ -38,32 +38,32 @@ def train(epochs, test_size, init_lr, min_lr, strategy, dataframe, device='GPU',
 	decoder = build_decoder(with_labels=True, target_size=(480,270), ext='png')
 	test_decoder = build_decoder(with_labels=False, target_size=(480,270),ext='png')
 
-    train_dataset = build_dataset(
-        train_paths, train_labels, bsize=batch_size, decode_fn=decoder
-    )
+	train_dataset = build_dataset(
+		train_paths, train_labels, bsize=batch_size, decode_fn=decoder
+	)
 
-    valid_dataset = build_dataset(
-        valid_paths, valid_labels, bsize=batch_size, decode_fn=decoder,
-        repeat=False, shuffle=False, augment=False
-    )
+	valid_dataset = build_dataset(
+		valid_paths, valid_labels, bsize=batch_size, decode_fn=decoder,
+		repeat=False, shuffle=False, augment=False
+	)
 
-    with strategy.scope():
-    	model = xception_model(input_shape=(480,270,3), weights='imagenet',
-    							 include_top=False, num_labels=n_labels)
+	with strategy.scope():
+		model = xception_model(input_shape=(480,270,3), weights='imagenet',
+								 include_top=False, num_labels=n_labels)
 
-    	model.compile(optimizer=MadGrad(learning_rate=init_lr),
-    				  loss='categorical_crossentropy',
-    				  metrics=['accuracy'])
+		model.compile(optimizer=MadGrad(learning_rate=init_lr),
+					  loss='categorical_crossentropy',
+					  metrics=['accuracy'])
 
-    	print(model.summary())
+		print(model.summary())
 
-    steps_per_epoch = train_paths.shape[0] // batch_size
+	steps_per_epoch = train_paths.shape[0] // batch_size
 
 	checkpoint = tf.keras.callbacks.ModelCheckpoint(
 		f'/kaggle/working/xception_v1-480.h5', save_best_only=True, monitor='val_loss', mode='min')
 
 	lr_reducer = tf.keras.callbacks.ReduceLROnPlateau(
-        monitor="val_loss", patience=3, min_lr=min_lr, mode='min')
+		monitor="val_loss", patience=3, min_lr=min_lr, mode='min')
 
 	history = model.fit(
 		train_dataset,
@@ -72,7 +72,7 @@ def train(epochs, test_size, init_lr, min_lr, strategy, dataframe, device='GPU',
 		callbacks=[checkpoint, lr_reducer],
 		steps_per_epoch=steps_per_epoch,
 		validation_data=valid_dataset)
-    
+	
 
 	return history
 
