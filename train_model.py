@@ -12,6 +12,31 @@ from utils.tpu_utils import *
 
 #from kaggle_datasets import KaggleDatasets # GCS path. for TPU
 
+def make_train_test_split(df, test_size=0.22):
+    '''
+    Create train, test
+    split for dataframes..
+    '''
+    splits = []
+    train_num = len(df) - math.ceil(len(df)*test_size)
+    for i in range(len(df)):
+        if i < train_num:
+            splits.append('train')
+        else:
+            splits.append('val')
+
+    df['split'] = splits
+    # ---------------
+    train_df = pd.DataFrame()
+    val_df = pd.DataFrame()
+
+    train_df = df.loc[df['split'] == 'train']
+    valid_df = df.loc[df['split'] == 'val']
+
+    del df
+    
+    return train_df, valid_df
+
 def get_strategy():
 	strategy = auto_select_accelerator(); return strategy
 
