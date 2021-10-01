@@ -94,7 +94,7 @@ def train(epochs, test_size, init_lr, min_lr, strategy, dataframe, device='GPU',
 	history = model.fit(
 		train_dataset,
 		epochs=epochs,
-		verbose=1,
+		#verbose=1,
 		callbacks=[checkpoint, lr_reducer],
 		steps_per_epoch=steps_per_epoch,
 		validation_data=valid_dataset)
