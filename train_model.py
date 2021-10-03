@@ -173,6 +173,7 @@ def train(epochs, test_size, init_lr, min_lr, strategy, dataframe, device='GPU',
 		steps_per_epoch=steps_per_epoch,
 		validation_data=valid_dataset)
 	
+	run.finish()
 
 	return history
 
