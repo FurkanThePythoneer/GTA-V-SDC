@@ -88,7 +88,7 @@ def train(epochs, test_size, init_lr, min_lr, strategy, dataframe, device='GPU',
 	
 
 	for choice in valid_labels:
-		print(choice)
+		#print(choice)
 		if choice   == '[1, 0, 0, 0, 0, 0, 0, 0, 0]':
 			actual_labels2.append(0)
 		elif choice == '[0, 1, 0, 0, 0, 0, 0, 0, 0]':
