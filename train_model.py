@@ -110,8 +110,8 @@ def train(epochs, test_size, init_lr, min_lr, strategy, dataframe, device='GPU',
 		else:
 			raise ValueError('No choice?!')
 
-	actual_labels = tensorflow.keras.utils.to_categorical(actual_labels, 9)
-	actual_labels2 = tensorflow.keras.utils.to_categorical(actual_labels2, 9)
+	actual_labels = tf.keras.utils.to_categorical(actual_labels, 9)
+	actual_labels2 = tf.keras.utils.to_categorical(actual_labels2, 9)
 
 
 
