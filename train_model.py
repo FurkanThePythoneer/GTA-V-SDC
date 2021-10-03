@@ -45,7 +45,7 @@ def make_train_test_split(df, test_size=0.22):
 def get_strategy():
 	strategy = auto_select_accelerator(); return strategy
 
-def train(epochs, test_size, init_lr, min_lr, strategy, dataframe, device='GPU', n_labels = 9, batch_size=32):
+def train(epochs, test_size, init_lr, min_lr, strategy, dataframe, device='GPU', n_labels = 9, batch_size=16):
 	log_in_wandb()
 	print('Logged in to wandb.ai')
 

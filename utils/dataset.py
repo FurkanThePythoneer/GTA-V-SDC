@@ -35,7 +35,7 @@ def build_augmenter(with_labels=True):
     return augment_with_labels if with_labels else augment
 
 
-def build_dataset(paths, labels=None, bsize=128, cache=True,
+def build_dataset(paths, labels=None, bsize=16, cache=True,
                   decode_fn=None, augment_fn=None,
                   augment=True, repeat=True, shuffle=1024, 
                   cache_dir=""):
