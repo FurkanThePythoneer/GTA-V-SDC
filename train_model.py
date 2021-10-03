@@ -135,8 +135,8 @@ def train(epochs, test_size, init_lr, min_lr, strategy, dataframe, device='GPU',
 
 
 
-	decoder = build_decoder(with_labels=True, target_size=(480,270), ext='png')
-	test_decoder = build_decoder(with_labels=False, target_size=(480,270),ext='png')
+	decoder = build_decoder(with_labels=True, target_size=(270,270), ext='png')
+	test_decoder = build_decoder(with_labels=False, target_size=(270,270),ext='png')
 
 	train_dataset = build_dataset(
 		train_paths, actual_labels, bsize=batch_size, decode_fn=decoder
@@ -148,7 +148,7 @@ def train(epochs, test_size, init_lr, min_lr, strategy, dataframe, device='GPU',
 	)
 
 	with strategy.scope(): # get the model
-		model = effnetv2_b2_model(input_shape=(480,270,3), weights='imagenet',
+		model = effnetv2_b2_model(input_shape=(270,270,3), weights='imagenet',
 								 include_top=False, num_labels=n_labels)
 
 		model.compile(optimizer=MadGrad(learning_rate=init_lr),
