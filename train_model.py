@@ -110,7 +110,11 @@ def train(epochs, test_size, init_lr, min_lr, strategy, dataframe, device='GPU',
 		else:
 			raise ValueError('No choice?!')
 
-	print(actual_labels)
+	actual_labels = tensorflow.keras.utils.to_categorical(actual_labels, 9)
+	actual_labels2 = tensorflow.keras.utils.to_categorical(actual_labels2, 9)
+
+
+
 	decoder = build_decoder(with_labels=True, target_size=(480,270), ext='png')
 	test_decoder = build_decoder(with_labels=False, target_size=(480,270),ext='png')
 
