@@ -163,7 +163,7 @@ if __name__ == '__main__':
 
 	strategy = get_strategy()
 	history  = train(epochs=10, test_size=0.20, init_lr=1e-3, min_lr=1e-6,
-					strategy=strategy, dataframe=df, device='GPU')
+					strategy=strategy, dataframe=df, device='GPU', batch_size=16)
 
 	hist_df = pd.DataFrame(history.history)
 	hist_df.to_csv(f'/kaggle/working/history.csv')
