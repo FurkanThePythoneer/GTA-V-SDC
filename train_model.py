@@ -10,7 +10,8 @@ import pandas as pd
 from utils.dataset import *
 from utils.tpu_utils import *
 
-
+import wandb
+wandb.login()
 #from kaggle_datasets import KaggleDatasets # GCS path. for TPU
 
 def make_train_test_split(df, test_size=0.22):
