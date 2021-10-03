@@ -1,7 +1,7 @@
 import tensorflow as tf
 import cv2
 import numpy as np
-from models import xception_model # Using Xception model (version: 1)
+from models import * # Using effnet model (version: 1)
 from madgrad import MadGrad # A different optimizer method that beats adam and sgd
 
 import math
@@ -148,7 +148,7 @@ def train(epochs, test_size, init_lr, min_lr, strategy, dataframe, device='GPU',
 	)
 
 	with strategy.scope(): # get the model
-		model = xception_model(input_shape=(480,270,3), weights='imagenet',
+		model = effnetv2_b2_model(input_shape=(480,270,3), weights='imagenet',
 								 include_top=False, num_labels=n_labels)
 
 		model.compile(optimizer=MadGrad(learning_rate=init_lr),
@@ -160,11 +160,11 @@ def train(epochs, test_size, init_lr, min_lr, strategy, dataframe, device='GPU',
 	#steps_per_epoch = train_paths.shape[0] // batch_size
 	steps_per_epoch = 69912 // batch_size	
 	checkpoint = tf.keras.callbacks.ModelCheckpoint(
-		f'/kaggle/working/xception_v1-480.h5', save_best_only=True, monitor='val_loss', mode='min')
+		f'/kaggle/working/effnetv2-b0_v1-480.h5', save_best_only=True, monitor='val_loss', mode='min')
 
 	lr_reducer = tf.keras.callbacks.ReduceLROnPlateau(
 		monitor="val_loss", patience=3, min_lr=min_lr, mode='min')
-
+s
 	history = model.fit(
 		train_dataset,
 		epochs=epochs,
@@ -184,7 +184,7 @@ if __name__ == '__main__':
 
 	strategy = get_strategy()
 	history  = train(epochs=10, test_size=0.20, init_lr=1e-3, min_lr=1e-6,
-					strategy=strategy, dataframe=df, device='GPU', batch_size=8)
+					strategy=strategy, dataframe=df, device='GPU', batch_size=16)
 
 	hist_df = pd.DataFrame(history.history)
 	hist_df.to_csv(f'/kaggle/working/history.csv')
