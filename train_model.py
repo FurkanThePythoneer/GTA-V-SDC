@@ -160,7 +160,7 @@ def train(epochs, test_size, init_lr, min_lr, strategy, dataframe, device='GPU',
 	#steps_per_epoch = train_paths.shape[0] // batch_size
 	steps_per_epoch = 69912 // batch_size	
 	checkpoint = tf.keras.callbacks.ModelCheckpoint(
-		f'/kaggle/working/effnetv2-b0_v1-480.h5', save_best_only=True, monitor='val_loss', mode='min')
+		f'/kaggle/working/effnetv2-b0_v1-270.h5', save_best_only=True, monitor='val_loss', mode='min')
 
 	lr_reducer = tf.keras.callbacks.ReduceLROnPlateau(
 		monitor="val_loss", patience=3, min_lr=min_lr, mode='min')

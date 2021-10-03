@@ -19,7 +19,7 @@ def xception_model(input_shape=(480,270,3), weights='imagenet', include_top=Fals
 def effnetv2_b2_model(input_shape=(480,270,3), weights='imagenet', include_top=False, num_labels=9):
 	# Xception base model for self driving cars in GTA-V (2021)
 	
-	_base = keras_efficientnet_v2.EfficientNetV2B2(input_shape=(480, 270, 3), num_classes=0, pretrained=weights)
+	_base = keras_efficientnet_v2.EfficientNetV2B2(input_shape=input_shape, num_classes=0, pretrained=weights)
 
 
 	x = _base.output
