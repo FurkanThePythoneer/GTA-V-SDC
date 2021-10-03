@@ -11,7 +11,10 @@ from utils.dataset import *
 from utils.tpu_utils import *
 
 import wandb
-wandb.login(key='95f7dfe314870c15547061ef7e42f3cb18f3cf31')
+from wandb.keras import WandbCallback
+
+def log_in_wandb(key='95f7dfe314870c15547061ef7e42f3cb18f3cf31'):
+	wandb.login(key=key)
 #from kaggle_datasets import KaggleDatasets # GCS path. for TPU
 
 def make_train_test_split(df, test_size=0.22):
@@ -43,6 +46,22 @@ def get_strategy():
 	strategy = auto_select_accelerator(); return strategy
 
 def train(epochs, test_size, init_lr, min_lr, strategy, dataframe, device='GPU', n_labels = 9, batch_size=32):
+	log_in_wandb()
+	print('Logged in to wandb.ai')
+
+	# Initialize wandb with your project name
+	run = wandb.init(project='self_driving_car_gta-v',
+	                 config={  # and include hyperparameters and metadata
+	                     "learning_rate": 0.001,
+	                     "epochs": 10,
+	                     "batch_size": 16,
+	                     "loss_function": "categorical_crossentropy",
+	                     "architecture": "CNN",
+	                     "dataset": "SDC-GTA-V-V0"
+	                     })
+	config = wandb.config
+	tf.keras.backend.clear_session()
+
 	train_df, val_df = make_train_test_split(df=dataframe, test_size=test_size)
 
 	print('Epochs: ', epochs)
@@ -150,7 +169,7 @@ def train(epochs, test_size, init_lr, min_lr, strategy, dataframe, device='GPU',
 		train_dataset,
 		epochs=epochs,
 		verbose=1,
-		callbacks=[checkpoint, lr_reducer],
+		callbacks=[checkpoint, lr_reducer, WandbCallback()],
 		steps_per_epoch=steps_per_epoch,
 		validation_data=valid_dataset)
 	
