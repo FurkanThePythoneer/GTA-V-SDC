@@ -155,7 +155,7 @@ def train(epochs, test_size, init_lr, min_lr, strategy, dataframe, device='GPU',
 					  loss='categorical_crossentropy',
 					  metrics=['accuracy'])
 
-		print(model.summary())
+		#print(model.summary())
 
 	#steps_per_epoch = train_paths.shape[0] // batch_size
 	steps_per_epoch = 69912 // batch_size	
@@ -183,7 +183,7 @@ if __name__ == '__main__':
 
 	strategy = get_strategy()
 	history  = train(epochs=10, test_size=0.20, init_lr=1e-3, min_lr=1e-6,
-					strategy=strategy, dataframe=df, device='GPU', batch_size=16)
+					strategy=strategy, dataframe=df, device='GPU', batch_size=8)
 
 	hist_df = pd.DataFrame(history.history)
 	hist_df.to_csv(f'/kaggle/working/history.csv')
