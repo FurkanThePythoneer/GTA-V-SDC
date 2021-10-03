@@ -50,8 +50,7 @@ def build_dataset(paths, labels=None, bsize=128, cache=True,
     
     AUTO = tf.data.experimental.AUTOTUNE
     slices = paths if labels is None else (paths, labels)
-    print(np.array(labels).shape)
-    
+
     dset = tf.data.Dataset.from_tensor_slices(slices)
     dset = dset.map(decode_fn, num_parallel_calls=AUTO)
     dset = dset.cache(cache_dir) if cache else dset

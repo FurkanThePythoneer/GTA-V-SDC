@@ -60,20 +60,65 @@ def train(epochs, test_size, init_lr, min_lr, strategy, dataframe, device='GPU',
 	
 	valid_paths  = val_df['id'].to_list()
 	valid_labels = val_df['choice'].to_list()
+	
+	actual_labels  = [] # training labels
+	actual_labels2 = [] # validation labels
+	
+	for choice in train_labels:
+		if choice   ==  [1,0,0,0,0,0,0,0,0]:
+			actual_labels.append(0)
+		elif choice == [0,1,0,0,0,0,0,0,0]:
+			actual_labels.append(1)
+		elif choice == [0,0,1,0,0,0,0,0,0]:
+			actual_labels.append(2)
+		elif choice == [0,0,0,1,0,0,0,0,0]:
+			actual_labels.append(3)						
+		elif choice == [0,0,0,0,1,0,0,0,0]:
+			actual_labels.append(4)
+		elif choice == [0,0,0,0,0,1,0,0,0]:
+			actual_labels.append(5)
+		elif choice == [0,0,0,0,0,0,1,0,0]:
+			actual_labels.append(6)
+		elif choice == [0,0,0,0,0,0,0,1,0]:
+			actual_labels.append(7)						
+		elif choice == [0,0,0,0,0,0,0,0,1]:
+			actual_labels.append(8)
+	
+
+	for choice in valid_labels:
+		if choice   ==  [1,0,0,0,0,0,0,0,0]:
+			actual_labels2.append(0)
+		elif choice == [0,1,0,0,0,0,0,0,0]:
+			actual_labels2.append(1)
+		elif choice == [0,0,1,0,0,0,0,0,0]:
+			actual_labels2.append(2)
+		elif choice == [0,0,0,1,0,0,0,0,0]:
+			actual_labels2.append(3)						
+		elif choice == [0,0,0,0,1,0,0,0,0]:
+			actual_labels2.append(4)
+		elif choice == [0,0,0,0,0,1,0,0,0]:
+			actual_labels2.append(5)
+		elif choice == [0,0,0,0,0,0,1,0,0]:
+			actual_labels2.append(6)
+		elif choice == [0,0,0,0,0,0,0,1,0]:
+			actual_labels2.append(7)						
+		elif choice == [0,0,0,0,0,0,0,0,1]:
+			actual_labels2.append(8)
+
 
 	decoder = build_decoder(with_labels=True, target_size=(480,270), ext='png')
 	test_decoder = build_decoder(with_labels=False, target_size=(480,270),ext='png')
 
 	train_dataset = build_dataset(
-		train_paths, train_labels, bsize=batch_size, decode_fn=decoder
+		train_paths, actual_labels, bsize=batch_size, decode_fn=decoder
 	)
 
 	valid_dataset = build_dataset(
-		valid_paths, valid_labels, bsize=batch_size, decode_fn=decoder,
+		valid_paths, actual_labels2, bsize=batch_size, decode_fn=decoder,
 		repeat=False, shuffle=False, augment=False
 	)
 
-	with strategy.scope():
+	with strategy.scope(): # get the model
 		model = xception_model(input_shape=(480,270,3), weights='imagenet',
 								 include_top=False, num_labels=n_labels)
 
@@ -94,7 +139,7 @@ def train(epochs, test_size, init_lr, min_lr, strategy, dataframe, device='GPU',
 	history = model.fit(
 		train_dataset,
 		epochs=epochs,
-		#verbose=1,
+		verbose=1,
 		callbacks=[checkpoint, lr_reducer],
 		steps_per_epoch=steps_per_epoch,
 		validation_data=valid_dataset)
