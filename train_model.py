@@ -164,7 +164,7 @@ def train(epochs, test_size, init_lr, min_lr, strategy, dataframe, device='GPU',
 
 	lr_reducer = tf.keras.callbacks.ReduceLROnPlateau(
 		monitor="val_loss", patience=3, min_lr=min_lr, mode='min')
-s
+
 	history = model.fit(
 		train_dataset,
 		epochs=epochs,
