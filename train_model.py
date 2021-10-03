@@ -43,8 +43,7 @@ def get_strategy():
 
 def train(epochs, test_size, init_lr, min_lr, strategy, dataframe, device='GPU', n_labels = 9, batch_size=64):
 	train_df, val_df = make_train_test_split(df=dataframe, test_size=test_size)
-	
-	print('\n')
+
 	print('Epochs: ', epochs)
 	print('test_size:', test_size)
 	print('init_lr: ',init_lr)
@@ -53,7 +52,7 @@ def train(epochs, test_size, init_lr, min_lr, strategy, dataframe, device='GPU',
 	print('device: ',device)
 	print('Training DF:\n{}'.format(df.head(3)))
 	print('Val df: {}'.format(val_df))
-	print('\n')
+
 	
 	train_paths  = train_df['id'].to_list()
 	train_labels = train_df['choice'].to_list()
@@ -65,7 +64,7 @@ def train(epochs, test_size, init_lr, min_lr, strategy, dataframe, device='GPU',
 	actual_labels2 = [] # validation labels
 	
 	for choice in train_labels:
-		print(choice)
+		print(type(choice))
 		if choice   == [1, 0, 0, 0, 0, 0, 0, 0, 0]:
 			actual_labels.append(0)
 		elif choice == [0, 1, 0, 0, 0, 0, 0, 0, 0]:
