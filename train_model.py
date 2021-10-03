@@ -105,7 +105,7 @@ def train(epochs, test_size, init_lr, min_lr, strategy, dataframe, device='GPU',
 		elif choice == [0,0,0,0,0,0,0,0,1]:
 			actual_labels2.append(8)
 
-
+	print(actual_labels)
 	decoder = build_decoder(with_labels=True, target_size=(480,270), ext='png')
 	test_decoder = build_decoder(with_labels=False, target_size=(480,270),ext='png')
 
