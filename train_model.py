@@ -64,24 +64,24 @@ def train(epochs, test_size, init_lr, min_lr, strategy, dataframe, device='GPU',
 	actual_labels2 = [] # validation labels
 	
 	for choice in train_labels:
-		print(type(choice))
-		if choice   == [1, 0, 0, 0, 0, 0, 0, 0, 0]:
+		#print(type(choice))
+		if choice   == '[1, 0, 0, 0, 0, 0, 0, 0, 0]':
 			actual_labels.append(0)
-		elif choice == [0, 1, 0, 0, 0, 0, 0, 0, 0]:
+		elif choice == '[0, 1, 0, 0, 0, 0, 0, 0, 0]':
 			actual_labels.append(1)
-		elif choice == [0, 0, 1, 0, 0, 0, 0, 0, 0]:
+		elif choice == '[0, 0, 1, 0, 0, 0, 0, 0, 0]':
 			actual_labels.append(2)
-		elif choice == [0, 0, 0, 1, 0, 0, 0, 0, 0]:
+		elif choice == '[0, 0, 0, 1, 0, 0, 0, 0, 0]':
 			actual_labels.append(3)						
-		elif choice == [0, 0, 0, 0, 1, 0, 0, 0, 0]:
+		elif choice == '[0, 0, 0, 0, 1, 0, 0, 0, 0]':
 			actual_labels.append(4)
-		elif choice == [0, 0, 0, 0, 0, 1, 0, 0, 0]:
+		elif choice == '[0, 0, 0, 0, 0, 1, 0, 0, 0]':
 			actual_labels.append(5)
-		elif choice == [0, 0, 0, 0, 0, 0, 1, 0, 0]:
+		elif choice == '[0, 0, 0, 0, 0, 0, 1, 0, 0]':
 			actual_labels.append(6)
-		elif choice == [0, 0, 0, 0, 0, 0, 0, 1, 0]:
+		elif choice == '[0, 0, 0, 0, 0, 0, 0, 1, 0]':
 			actual_labels.append(7)						
-		elif choice == [0, 0, 0, 0, 0, 0, 0, 0, 1]:
+		elif choice == '[0, 0, 0, 0, 0, 0, 0, 0, 1]':
 			actual_labels.append(8)
 		else:
 			raise ValueError('No choice?!')
@@ -89,23 +89,23 @@ def train(epochs, test_size, init_lr, min_lr, strategy, dataframe, device='GPU',
 
 	for choice in valid_labels:
 		print(choice)
-		if choice   == [1, 0, 0, 0, 0, 0, 0, 0, 0]:
+		if choice   == '[1, 0, 0, 0, 0, 0, 0, 0, 0]':
 			actual_labels2.append(0)
-		elif choice == [0, 1, 0, 0, 0, 0, 0, 0, 0]:
+		elif choice == '[0, 1, 0, 0, 0, 0, 0, 0, 0]':
 			actual_labels2.append(1)
-		elif choice == [0, 0, 1, 0, 0, 0, 0, 0, 0]:
+		elif choice == '[0, 0, 1, 0, 0, 0, 0, 0, 0]':
 			actual_labels2.append(2)
-		elif choice == [0, 0, 0, 1, 0, 0, 0, 0, 0]:
+		elif choice == '[0, 0, 0, 1, 0, 0, 0, 0, 0]':
 			actual_labels2.append(3)						
-		elif choice == [0, 0, 0, 0, 1, 0, 0, 0, 0]:
+		elif choice == '[0, 0, 0, 0, 1, 0, 0, 0, 0]':
 			actual_labels2.append(4)
-		elif choice == [0, 0, 0, 0, 0, 1, 0, 0, 0]:
+		elif choice == '[0, 0, 0, 0, 0, 1, 0, 0, 0]':
 			actual_labels2.append(5)
-		elif choice == [0, 0, 0, 0, 0, 0, 1, 0, 0]:
+		elif choice == '[0, 0, 0, 0, 0, 0, 1, 0, 0]':
 			actual_labels2.append(6)
-		elif choice == [0, 0, 0, 0, 0, 0, 0, 1, 0]:
+		elif choice == '[0, 0, 0, 0, 0, 0, 0, 1, 0]':
 			actual_labels2.append(7)						
-		elif choice == [0, 0, 0, 0, 0, 0, 0, 0, 1]:
+		elif choice == '[0, 0, 0, 0, 0, 0, 0, 0, 1]':
 			actual_labels2.append(8)
 		else:
 			raise ValueError('No choice?!')
